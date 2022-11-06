@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='container' style='width:50%;margin-top:200px'>
+    <h1 class='text-center'>PDF rotation</h1>
+    <div>
+        {% for message in messages  %}
+           <p class='text-danger'>{{message}}</p>
+        {% endfor %}
+    </div>
+<form method='post' enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="angle">Enter the angle of rotation</label>
+      <input type="text" class="form-control" id="angle" placeholder="Enter Angle in mulitple of 90" name = 'angle' required>
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="pageNumber">Page Number</label>
+      <input type="text" class="form-control" id="pageNumber" placeholder="pageNumber" name = 'pageNumber' required>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Example file input</label>
+        <input type="file" class="form-control-file" name="document" required>
+      </div>
+      <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <br>
+  {% if final_file %}
+
+  <h2> Please click here to download your rotated file. </h2>
+  <button><a href="{% url 'download' final_file %}">Download</a></button>
+  {% endif %}
+</div>
+  {% endblock %}
